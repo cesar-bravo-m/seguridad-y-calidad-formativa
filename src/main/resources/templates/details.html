@@ -205,6 +205,9 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
+                    <div th:if="${#authentication.name != 'anonymousUser'}" style="flex-direction: row; display: flex; align-items: center; justify-content: center;">
+                        Hola,&nbsp;<span th:text="${#authentication.name}"></span>
+                    </div>
                     <th:block th:if="${#authentication.authenticated}">
                         <li class="nav-item">
                             <a class="nav-link" href="/profile">Perfil</a>
