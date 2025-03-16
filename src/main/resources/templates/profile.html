@@ -91,6 +91,15 @@
             margin-left: 0.5rem;
             cursor: pointer;
         }
+        .alert {
+            margin-top: 1rem;
+            border-radius: 4px;
+        }
+        .alert-success {
+            background-color: rgba(40, 167, 69, 0.2);
+            border-color: #28a745;
+            color: #d4edda;
+        }
     </style>
 </head>
 <body>
@@ -128,9 +137,11 @@
     <div class="profile-container">
         <h2><i class="fas fa-user-circle"></i> Mi Perfil</h2>
         
+        <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+        
         <form class="profile-form" th:action="@{/profile/update}" method="post" enctype="multipart/form-data">
             <div class="avatar-section">
-                <img th:src="${user?.avatar != null ? user.avatar : 'https://placehold.co/150x150/9D4EDD/ffffff?text=Avatar'}" 
+                <img th:src="${profile?.avatarUri != null ? profile.avatarUri : 'https://placehold.co/150x150/9D4EDD/ffffff?text=Avatar'}" 
                      alt="Avatar" class="avatar-preview" id="avatarPreview">
                 <div class="mt-3">
                     <label for="avatarInput" class="btn btn-primary">
@@ -144,7 +155,8 @@
             <div class="mb-4">
                 <label for="username" class="form-label">Nombre de Usuario</label>
                 <input type="text" class="form-control" id="username" name="username"
-                       th:value="${#authentication.name}" required>
+                       th:value="${#authentication.name}" readonly>
+                <small class="text-muted">El nombre de usuario no se puede cambiar</small>
             </div>
 
             <div class="mb-4">
@@ -157,8 +169,13 @@
                     </button>
                 </div>
                 <div class="games-container" id="gamesContainer">
-                    <input type="hidden" name="games" id="gamesInput">
-                    <!-- Los juegos se agregarán aquí dinámicamente -->
+                    <input type="hidden" name="games" id="gamesInput" th:value="${profile?.favoriteGames}">
+                    <span th:each="game : ${profile?.favoriteGames}" class="game-tag">
+                        <span th:text="${game}"></span>
+                        <span class="remove-game" onclick="removeGame('${game}')">
+                            <i class="fas fa-times"></i>
+                        </span>
+                    </span>
                 </div>
             </div>
 
@@ -166,23 +183,16 @@
                 <label class="form-label">Opciones de Notificación</label>
                 <div class="form-check mb-2">
                     <input class="form-check-input" type="checkbox" id="emailNotif" name="notifications" 
-                           value="email" th:checked="${user?.emailNotifications}">
+                           value="email" th:checked="${profile?.emailNotifications}">
                     <label class="form-check-label" for="emailNotif">
                         Notificaciones por correo electrónico
                     </label>
                 </div>
                 <div class="form-check mb-2">
                     <input class="form-check-input" type="checkbox" id="pushNotif" name="notifications" 
-                           value="push" th:checked="${user?.pushNotifications}">
+                           value="push" th:checked="${profile?.pushNotifications}">
                     <label class="form-check-label" for="pushNotif">
                         Notificaciones push
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="eventNotif" name="notifications" 
-                           value="events" th:checked="${user?.eventNotifications}">
-                    <label class="form-check-label" for="eventNotif">
-                        Notificaciones de nuevos eventos
                     </label>
                 </div>
             </div>
@@ -210,6 +220,19 @@
 
         // Games management
         let games = [];
+        
+        // Initialize games from profile data
+        document.addEventListener('DOMContentLoaded', function() {
+            const gamesInput = document.getElementById('gamesInput');
+            if (gamesInput.value) {
+                try {
+                    games = JSON.parse(gamesInput.value);
+                    updateGamesDisplay();
+                } catch (e) {
+                    console.error('Error parsing games JSON:', e);
+                }
+            }
+        });
 
         function addGame() {
             const gameInput = document.getElementById('gameInput');
