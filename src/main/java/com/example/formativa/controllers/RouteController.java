@@ -1,5 +1,7 @@
 package com.example.formativa.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,8 +34,40 @@ public class RouteController {
     }
 
     @GetMapping("/search")
-    public String search(@RequestParam String query, Model model) {
-        model.addAttribute("query", query);
+    public String search(
+            @RequestParam(required = false) String query,
+            @RequestParam(required = false) String description,
+            @RequestParam(required = false) String category,
+            @RequestParam(required = false) String date,
+            @RequestParam(required = false) String location,
+            Model model) {
+        
+        List<Event> searchResults = null;
+        
+        // If simple search query is provided
+        if (query != null && !query.isEmpty()) {
+            model.addAttribute("query", query);
+            // Search in all fields
+            searchResults = eventService.searchEvents(query, query, query, query);
+        } 
+        // If advanced search parameters are provided
+        else if ((description != null && !description.isEmpty()) || 
+                 (category != null && !category.isEmpty()) || 
+                 (date != null && !date.isEmpty()) || 
+                 (location != null && !location.isEmpty())) {
+            
+            searchResults = eventService.searchEvents(description, category, date, location);
+            
+            // Add search parameters to model for displaying in the form
+            model.addAttribute("description", description);
+            model.addAttribute("category", category);
+            model.addAttribute("date", date);
+            model.addAttribute("location", location);
+        }
+        
+        // Add search results to model
+        model.addAttribute("searchResults", searchResults);
+        
         return "search";
     }
 }
