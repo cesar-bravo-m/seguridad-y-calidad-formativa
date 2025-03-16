@@ -63,10 +63,16 @@ public class UserService implements UserDetailsService {
         Profile profile = profileRepository.findByUserUsername(username)
                 .orElseThrow(() -> new RuntimeException("Profile not found for user: " + username));
         
+        // Update the user's username
+        User user = profile.getUser();
+        user.setUsername(username);
+        userRepository.save(user);
+        
         if (avatarUri != null && !avatarUri.isEmpty()) {
             profile.setAvatarUri(avatarUri);
         }
         
+        // Store favorite games as a comma-separated list
         if (favoriteGames != null) {
             profile.setFavoriteGames(favoriteGames);
         }

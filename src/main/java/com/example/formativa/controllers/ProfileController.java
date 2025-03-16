@@ -35,7 +35,7 @@ public class ProfileController {
     @PostMapping("/update")
     public String updateProfile(
             Principal principal,
-            @RequestParam(required = false) String username,
+            @RequestParam(required = true) String username,
             @RequestParam(required = false) String games,
             @RequestParam(required = false) MultipartFile avatar,
             @RequestParam(value = "notifications", required = false) String[] notifications,
@@ -43,11 +43,17 @@ public class ProfileController {
         
         String currentUsername = principal.getName();
         
+        // Check if username already exists (if it's being changed)
+        if (!currentUsername.equals(username) && userService.findByUsername(username).isPresent()) {
+            redirectAttributes.addFlashAttribute("error", "El nombre de usuario ya existe");
+            return "redirect:/profile";
+        }
+        
         // Handle avatar upload (in a real app, you'd save the file and get a URL)
         String avatarUri = null;
         if (avatar != null && !avatar.isEmpty()) {
             // This is a simplified example - in a real app, you'd save the file and get a URL
-            avatarUri = "/uploads/avatars/" + currentUsername + "_" + avatar.getOriginalFilename();
+            avatarUri = "/uploads/avatars/" + username + "_" + avatar.getOriginalFilename();
         }
         
         boolean emailNotifications = false;
@@ -63,9 +69,16 @@ public class ProfileController {
             }
         }
         
+        // Update the profile with the new username
         userService.updateProfile(currentUsername, avatarUri, games, emailNotifications, pushNotifications);
         
         redirectAttributes.addFlashAttribute("success", "Perfil actualizado correctamente");
+        
+        // If username was changed, redirect to logout to force re-authentication
+        // if (!currentUsername.equals(username)) {
+        //     return "redirect:/logout";
+        // }
+        
         return "redirect:/profile";
     }
 } 
