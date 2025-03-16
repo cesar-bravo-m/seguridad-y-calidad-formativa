@@ -281,15 +281,15 @@
                     
                     <!-- Attractions -->
                     <div class="event-card">
-                        <h2><i class="fas fa-star me-2"></i> Atractivos</h2>
+                        <h2><i class="fas fa-star me-2"></i> Principales expositores</h2>
                         <div class="attractions-list">
                             <div class="attraction-item" th:each="attraction : ${event.attractions?.split(',')}">
                                 <div class="attraction-icon">
                                     <i class="fas fa-gamepad"></i>
                                 </div>
                                 <div>
-                                    <h4 th:text="${attraction}">Nombre del atractivo</h4>
-                                    <p>Experiencia gaming de alto nivel</p>
+                                    <h4 th:text="${attraction}">Nombre del expositor</h4>
+                                    <p>Expositor de alto nivel</p>
                                 </div>
                             </div>
                             <!-- Fallback if no attractions -->

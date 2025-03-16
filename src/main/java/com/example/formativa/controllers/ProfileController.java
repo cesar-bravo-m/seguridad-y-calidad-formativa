@@ -36,7 +36,7 @@ public class ProfileController {
     public String updateProfile(
             Principal principal,
             @RequestParam(required = true) String username,
-            @RequestParam(required = false) String games,
+            @RequestParam(required = true) String games,
             @RequestParam(required = false) MultipartFile avatar,
             @RequestParam(value = "notifications", required = false) String[] notifications,
             RedirectAttributes redirectAttributes) {
@@ -70,14 +70,20 @@ public class ProfileController {
         }
         
         // Update the profile with the new username
+        System.out.println("Updating profile for user: " + currentUsername);
+        System.out.println("Username: " + username);
+        System.out.println("Avatar URI: " + avatarUri);
+        System.out.println("Games: " + games);
+        System.out.println("Email notifications: " + emailNotifications);
+        System.out.println("Push notifications: " + pushNotifications);
         userService.updateProfile(currentUsername, avatarUri, games, emailNotifications, pushNotifications);
+
+        if (!currentUsername.equals(username)) {
+            userService.updateUsername(currentUsername, username);
+            return "redirect:/logout";
+        }
         
         redirectAttributes.addFlashAttribute("success", "Perfil actualizado correctamente");
-        
-        // If username was changed, redirect to logout to force re-authentication
-        // if (!currentUsername.equals(username)) {
-        //     return "redirect:/logout";
-        // }
         
         return "redirect:/profile";
     }

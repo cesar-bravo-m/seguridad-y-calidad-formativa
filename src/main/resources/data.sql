@@ -8,26 +8,13 @@ ALTER TABLE event ALTER COLUMN id RESTART WITH 1;
 ALTER TABLE users ALTER COLUMN id RESTART WITH 1;
 ALTER TABLE profiles ALTER COLUMN id RESTART WITH 1;
 
--- -- Insert pre-registered users (passwords are BCrypt encoded)
--- -- pass1, pass2, pass3, pass4
--- INSERT INTO users (username, password, email, enabled) VALUES
--- ('user1', '$2a$10$dXJ3SW6G7P50lGmMkkmwe.20cQQubK3.HZWzG3YB1tlRy.fqvM/BG', 'user1@example.com', true),
--- ('user2', '$2a$10$dXJ3SW6G7P50lGmMkkmwe.20cQQubK3.HZWzG3YB1tlRy.fqvM/BG', 'user2@example.com', true),
--- ('user3', '$2a$10$dXJ3SW6G7P50lGmMkkmwe.20cQQubK3.HZWzG3YB1tlRy.fqvM/BG', 'user3@example.com', true),
--- ('user4', '$2a$10$dXJ3SW6G7P50lGmMkkmwe.20cQQubK3.HZWzG3YB1tlRy.fqvM/BG', 'user4@example.com', true);
-
--- Create profiles for each user
--- INSERT INTO profiles (user_id, avatar_uri, favorite_games, email_notifications, push_notifications) VALUES
--- (1, 'https://placehold.co/150x150/9D4EDD/ffffff?text=User1', 'League of Legends,Valorant,Minecraft', true, true),
--- (2, 'https://placehold.co/150x150/7B2CBF/ffffff?text=User2', 'Fortnite,Call of Duty,FIFA 24', true, false),
--- (3, 'https://placehold.co/150x150/5A189A/ffffff?text=User3', 'Rocket League,Super Smash Bros,Mario Kart', false, true),
--- (4, 'https://placehold.co/150x150/3C096C/ffffff?text=User4', 'Minecraft,Among Us,Hearthstone', false, false);
+-- Users are now created by DataInitializer class
 
 -- Insert seed data
 INSERT INTO event (category, description, address, time, organizers, image, available_services, attractions) VALUES
 ('Torneo', 'Torneo Nacional de League of Legends', 'Centro de Convenciones Santiago', '2024-05-15 10:00', 'ESL Gaming Chile', 'https://placehold.co/600x400/9D4EDD/ffffff?text=LoL+Tournament', 'Food Court, WiFi, Parking', 'Prize Pool $5000, Meet Pro Players, Cosplay Contest'),
 
-('Junta', 'Minecraft Building Championship', 'Teatro Caupolicán', '2024-06-01 14:00', 'Minecraft Chile Community', 'https://placehold.co/600x400/7B2CBF/ffffff?text=Minecraft+Event', 'Snack Bar, Free Water Stations', 'Building Competitions, Creative Workshops, YouTuber Meet & Greet'),
+('Junta', 'Minecraft Building Championship', 'Teatro Caupolicán', '2024-06-01 14:00', 'Minecraft Chile Community', 'https://placehold.co/600x400/7B2CBF/ffffff?text=Minecraft+Event', 'Snack Bar, Free Water Stations', 'Dream, Creative Workshops, YouTuber Meet & Greet'),
 
 ('Charla', 'Pokemon Trading Card Tournament', 'Mall Plaza Vespucio', '2024-05-20 11:00', 'Pokemon Fans Chile', 'https://placehold.co/600x400/5A189A/ffffff?text=Pokemon+TCG', 'Card Shop, Trading Area', 'Official Tournament, Card Trading, Rare Card Exhibition'),
 

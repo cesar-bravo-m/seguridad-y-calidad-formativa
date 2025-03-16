@@ -75,22 +75,34 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new RuntimeException("Profile not found for user: " + username));
         
         // Update the user's username
-        User user = profile.getUser();
-        user.setUsername(username);
-        userRepository.save(user);
+        // if (newUsername != null && !newUsername.isEmpty()) {
+        //     User user = profile.getUser();
+        //     user.setUsername(newUsername);
+        //     userRepository.save(user);
+        // }
         
         if (avatarUri != null && !avatarUri.isEmpty()) {
             profile.setAvatarUri(avatarUri);
         }
         
-        // Store favorite games as a comma-separated list
-        if (favoriteGames != null) {
-            profile.setFavoriteGames(favoriteGames);
-        }
+        profile.setFavoriteGames(favoriteGames);
         
         profile.setEmailNotifications(emailNotifications);
         profile.setPushNotifications(pushNotifications);
         
         return profileRepository.save(profile);
+    }
+
+    @Transactional
+    public User updateUsername(String oldUsername, String newUsername) {
+        Profile oldProfile = profileRepository.findByUserUsername(oldUsername)
+                .orElseThrow(() -> new RuntimeException("Profile not found: " + oldUsername));
+        User user = userRepository.findByUsername(oldUsername)
+                .orElseThrow(() -> new RuntimeException("User not found: " + oldUsername));
+        user.setUsername(newUsername);
+        userRepository.save(user);
+        oldProfile.setUser(user);
+        profileRepository.save(oldProfile);
+        return user;
     }
 } 
