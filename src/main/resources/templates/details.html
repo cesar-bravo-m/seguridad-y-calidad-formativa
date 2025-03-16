@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaming Events Hub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-gamepad"></i> Gaming Events Hub
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <th:block th:if="${#authentication.authenticated}">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/profile">Perfil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">Cerrar sesión</a>
+                        </li>
+                    </th:block>
+                    <th:block th:unless="${#authentication.authenticated}">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login">Iniciar sesión</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/register">Registro</a>
+                        </li>
+                    </th:block>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container">
+            <h1>Detalles del Evento</h1>
+            <p>Descripción: <span th:text="${event.description}"></span></p>
+            <p>Fecha: <span th:text="${event.time}"></span></p>
+            <p>Organizadores: <span th:text="${event.organizers}"></span></p>
+            <p>Dirección: <span th:text="${event.address}"></span></p>
+            <p>Servicios Disponibles: <span th:text="${event.availableServices}"></span></p>
+            <p>Atractivos: <span th:text="${event.attractions}"></span></p>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function previewAvatar(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatarPreview').src = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+</body>
+</html> 

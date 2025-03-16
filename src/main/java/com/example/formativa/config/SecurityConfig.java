@@ -34,7 +34,7 @@ public class SecurityConfig {
                 .requestMatchers("/h2-console/**").permitAll()
                 .requestMatchers("/css/**", "/js/**", "/images/**", "/styles.css").permitAll()
                 .requestMatchers("/register", "/login").permitAll()
-                .requestMatchers("/details", "/profile/**").authenticated()
+                .requestMatchers("/details/**", "/profile/**").authenticated()
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
