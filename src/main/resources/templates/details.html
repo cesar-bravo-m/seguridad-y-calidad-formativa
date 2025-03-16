@@ -7,6 +7,192 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        :root {
+            --neon-purple: #9D4EDD;
+            --neon-blue: #5E60CE;
+            --neon-pink: #FF00FF;
+            --dark-bg: #10002B;
+            --card-bg: rgba(94, 96, 206, 0.1);
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(157, 78, 221, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(94, 96, 206, 0.2) 0%, transparent 50%);
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .event-header {
+            background: linear-gradient(90deg, var(--neon-purple), var(--neon-blue));
+            padding: 2rem 0;
+            margin-top: 70px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .event-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://placehold.co/1200x400/10002B/5E60CE?text=GAMING+EVENT') center/cover;
+            opacity: 0.3;
+            z-index: 0;
+        }
+        
+        .event-header-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .event-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px var(--neon-purple), 0 0 20px var(--neon-blue);
+            letter-spacing: 2px;
+        }
+        
+        .event-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(157, 78, 221, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(157, 78, 221, 0.4);
+        }
+        
+        .event-image {
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--neon-purple);
+        }
+        
+        .event-image img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.5s;
+        }
+        
+        .event-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        .info-label {
+            color: var(--neon-purple);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: block;
+            font-size: 1.2rem;
+        }
+        
+        .info-value {
+            background: rgba(16, 0, 43, 0.5);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid var(--neon-purple);
+        }
+        
+        .attraction-item {
+            background: rgba(94, 96, 206, 0.2);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s;
+        }
+        
+        .attraction-item:hover {
+            transform: translateX(5px);
+            background: rgba(94, 96, 206, 0.3);
+        }
+        
+        .attraction-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--neon-purple);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .service-tag {
+            display: inline-block;
+            background: var(--neon-blue);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            margin: 0.25rem;
+            font-size: 0.9rem;
+            transition: transform 0.3s;
+        }
+        
+        .service-tag:hover {
+            transform: scale(1.05);
+            background: var(--neon-purple);
+        }
+        
+        .cta-button {
+            background: linear-gradient(90deg, var(--neon-purple), var(--neon-blue));
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 30px;
+            margin-top: 1rem;
+            transition: all 0.3s;
+            box-shadow: 0 0 15px rgba(157, 78, 221, 0.5);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px rgba(157, 78, 221, 0.8);
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+        }
+        
+        .error-container {
+            background: rgba(255, 0, 0, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 100px;
+            text-align: center;
+            border: 1px solid rgba(255, 0, 0, 0.5);
+        }
+        
+        .error-icon {
+            font-size: 4rem;
+            color: #ff6b6b;
+            margin-bottom: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .event-title {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
@@ -40,29 +226,140 @@
         </div>
     </nav>
 
-    <main>
-        <div class="container">
-            <h1>Detalles del Evento</h1>
-            <p>Descripción: <span th:text="${event.description}"></span></p>
-            <p>Fecha: <span th:text="${event.time}"></span></p>
-            <p>Organizadores: <span th:text="${event.organizers}"></span></p>
-            <p>Dirección: <span th:text="${event.address}"></span></p>
-            <p>Servicios Disponibles: <span th:text="${event.availableServices}"></span></p>
-            <p>Atractivos: <span th:text="${event.attractions}"></span></p>
+    <!-- Error message if event is null -->
+    <div th:if="${event == null}" class="container error-container">
+        <div class="error-icon">
+            <i class="fas fa-exclamation-triangle"></i>
         </div>
-    </main>
+        <h2>¡Evento no encontrado!</h2>
+        <p class="lead" th:text="${error}">El evento solicitado no existe o no está disponible.</p>
+        <a href="/" class="btn cta-button mt-4">
+            <i class="fas fa-home"></i> Volver a la página principal
+        </a>
+    </div>
+
+    <!-- Event details if event exists -->
+    <div th:if="${event != null}">
+        <!-- Event Header -->
+        <header class="event-header">
+            <div class="container event-header-content">
+                <h1 class="event-title" th:text="${event.description}">Nombre del Evento</h1>
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <p class="lead"><i class="fas fa-calendar-alt me-2"></i> <span th:text="${event.time}">Fecha y hora</span></p>
+                        <p class="lead"><i class="fas fa-map-marker-alt me-2"></i> <span th:text="${event.address}">Ubicación</span></p>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <button class="btn cta-button">
+                            <i class="fas fa-ticket-alt me-2"></i> Registrarse
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="container py-5">
+            <div class="row">
+                <!-- Left Column -->
+                <div class="col-lg-8">
+                    <!-- Event Description -->
+                    <div class="event-card">
+                        <div class="event-image">
+                            <img src="https://placehold.co/800x400/10002B/9D4EDD?text=GAMING+EVENT" alt="Event Image">
+                        </div>
+                        <h2><i class="fas fa-info-circle me-2"></i> Descripción del Evento</h2>
+                        <p class="lead" th:text="${event.description}">Descripción detallada del evento...</p>
+                        
+                        <h3 class="mt-4"><i class="fas fa-users me-2"></i> Organizadores</h3>
+                        <div class="info-value" th:text="${event.organizers}">
+                            Nombres de los organizadores
+                        </div>
+                    </div>
+                    
+                    <!-- Attractions -->
+                    <div class="event-card">
+                        <h2><i class="fas fa-star me-2"></i> Atractivos</h2>
+                        <div class="attractions-list">
+                            <div class="attraction-item" th:each="attraction : ${event.attractions?.split(',')}">
+                                <div class="attraction-icon">
+                                    <i class="fas fa-gamepad"></i>
+                                </div>
+                                <div>
+                                    <h4 th:text="${attraction}">Nombre del atractivo</h4>
+                                    <p>Experiencia gaming de alto nivel</p>
+                                </div>
+                            </div>
+                            <!-- Fallback if no attractions -->
+                            <div class="attraction-item" th:if="${event.attractions == null || event.attractions.isEmpty()}">
+                                <div class="attraction-icon">
+                                    <i class="fas fa-gamepad"></i>
+                                </div>
+                                <div>
+                                    <h4>Torneos de videojuegos</h4>
+                                    <p>Compite con los mejores jugadores</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Column -->
+                <div class="col-lg-4">
+                    <!-- Event Details -->
+                    <div class="event-card">
+                        <h2><i class="fas fa-calendar-check me-2"></i> Detalles</h2>
+                        
+                        <span class="info-label">Fecha y Hora</span>
+                        <div class="info-value" th:text="${event.time}">
+                            Fecha y hora del evento
+                        </div>
+                        
+                        <span class="info-label">Dirección</span>
+                        <div class="info-value" th:text="${event.address}">
+                            Dirección completa del evento
+                        </div>
+                        
+                        <div class="text-center mt-4">
+                            <img src="https://placehold.co/300x300/10002B/5E60CE?text=QR+CODE" alt="QR Code" class="img-fluid rounded">
+                            <p class="mt-2">Escanea para más información</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Services -->
+                    <div class="event-card">
+                        <h2><i class="fas fa-concierge-bell me-2"></i> Servicios Disponibles</h2>
+                        <div class="services-container">
+                            <div th:each="service : ${event.availableServices?.split(',')}">
+                                <span class="service-tag" th:text="${service}">Servicio</span>
+                            </div>
+                            <!-- Fallback if no services -->
+                            <div th:if="${event.availableServices == null || event.availableServices.isEmpty()}">
+                                <span class="service-tag">WiFi Gratuito</span>
+                                <span class="service-tag">Área de Descanso</span>
+                                <span class="service-tag">Snacks</span>
+                                <span class="service-tag">Estacionamiento</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Call to Action -->
+                    <div class="event-card text-center">
+                        <h3><i class="fas fa-share-alt me-2"></i> Comparte este evento</h3>
+                        <div class="d-flex justify-content-center mt-3">
+                            <a href="#" class="btn btn-outline-light mx-2"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="btn btn-outline-light mx-2"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="btn btn-outline-light mx-2"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="btn btn-outline-light mx-2"><i class="fab fa-discord"></i></a>
+                        </div>
+                        <button class="btn cta-button w-100 mt-4">
+                            <i class="fas fa-ticket-alt me-2"></i> Registrarse Ahora
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        function previewAvatar(input) {
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatarPreview').src = e.target.result;
-                }
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-    </script>
 </body>
 </html> 
