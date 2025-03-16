@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registro</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --primary-color: #7B2CBF;
+            --secondary-color: #9D4EDD;
+            --background-color: #10002B;
+            --text-color: #E0AAFF;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #7B2CBF;
+            padding: 20px;
+        }
+        .register-container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+        }
+        button {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .error {
+            color: #dc3545;
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            border-radius: 4px;
+            background-color: #f8d7da;
+        }
+        .success {
+            color: #28a745;
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            border-radius: 4px;
+            background-color: #d4edda;
+        }
+        .login-link {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        .login-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+        .field-info {
+            font-size: 0.8rem;
+            color: #6c757d;
+            margin-top: 0.25rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <h2>Registro</h2>
+        
+        <div th:if="${error}" class="error" th:text="${error}">
+        </div>
+        
+        <div th:if="${success}" class="success" th:text="${success}">
+        </div>
+
+        <form th:action="@{/register}" method="post" id="registerForm">
+            <div class="form-group">
+                <label for="username">Nombre de usuario:</label>
+                <input type="text" id="username" name="username" required autofocus
+                       minlength="3" maxlength="20" pattern="[a-zA-Z0-9]+"
+                       title="Nombre de usuario debe tener entre 3 y 20 caracteres y solo puede contener letras y números">
+                <div class="field-info">3-20 caracteres, letras y números solo</div>
+            </div>
+
+            <div class="form-group">
+                <label for="name">Nombre completo:</label>
+                <input type="text" id="name" name="name" required
+                       minlength="2" maxlength="50"
+                       title="Por favor, ingrese su nombre completo">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required
+                       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                       title="Por favor, ingrese una dirección de correo electrónico válida">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password" required
+                       minlength="6"
+                       title="La contraseña debe tener al menos 6 caracteres">
+                <div class="field-info">Mínimo 6 caracteres</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="confirmPassword">Confirmar contraseña:</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required>
+            </div>
+            
+            <button type="submit">Registrar</button>
+        </form>
+        
+        <div class="login-link">
+            Ya tienes una cuenta? <a th:href="@{/login}">Inicia sesión aquí</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            var password = document.getElementById('password');
+            var confirmPassword = document.getElementById('confirmPassword');
+            var email = document.getElementById('email');
+            
+            if (password.value !== confirmPassword.value) {
+                e.preventDefault();
+                alert('Passwords do not match!');
+                return;
+            }
+
+            if (!email.value.match(/^[A-Za-z0-9+_.-]+@(.+)$/)) {
+                e.preventDefault();
+                alert('Please enter a valid email address!');
+                return;
+            }
+        });
+    </script>
+</body>
+</html>
