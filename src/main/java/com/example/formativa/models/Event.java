@@ -12,6 +12,7 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String category;
     private String description;
     private String address;
     private String time;
@@ -87,5 +88,13 @@ public class Event {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 } 

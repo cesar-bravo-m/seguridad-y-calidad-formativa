@@ -14,6 +14,10 @@
             <a class="navbar-brand" href="/">
                 <i class="fas fa-gamepad"></i> Gaming Events Hub
             </a>
+            <form class="d-flex" th:action="@{/search}" method="get">
+                <input class="form-control me-2" type="search" placeholder="Buscar evento" aria-label="Search" name="query">
+                <button class="btn btn-outline" style="background-color: #9D4EDD; color: white;" type="submit">Buscar</button>
+            </form>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.formativa.models.Event;
 import com.example.formativa.services.EventService;
@@ -28,5 +29,11 @@ public class RouteController {
         }
         model.addAttribute("event", event);
         return "details";
+    }
+
+    @GetMapping("/search")
+    public String search(@RequestParam String query, Model model) {
+        model.addAttribute("query", query);
+        return "search";
     }
 }
