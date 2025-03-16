@@ -56,7 +56,18 @@ public class UserService implements UserDetailsService {
     public Optional<Profile> getProfileByUsername(String username) {
         return profileRepository.findByUserUsername(username);
     }
-    
+
+    @Transactional
+    public void createProfile(String username, String avatarUri, String favoriteGames, boolean emailNotifications, boolean pushNotifications) {
+        Profile profile = new Profile();
+        profile.setUser(userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("User not found: " + username)));
+        profile.setAvatarUri(avatarUri);
+        profile.setFavoriteGames(favoriteGames);
+        profile.setEmailNotifications(emailNotifications);
+        profile.setPushNotifications(pushNotifications);
+        profileRepository.save(profile);
+    }
+
     @Transactional
     public Profile updateProfile(String username, String avatarUri, String favoriteGames, 
                                 boolean emailNotifications, boolean pushNotifications) {

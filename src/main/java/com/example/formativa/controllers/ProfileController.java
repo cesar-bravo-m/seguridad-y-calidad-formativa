@@ -26,7 +26,7 @@ public class ProfileController {
     public String showProfile(Model model, Principal principal) {
         String username = principal.getName();
         Profile profile = userService.getProfileByUsername(username)
-                .orElseThrow(() -> new RuntimeException("Profile not found for user: " + username));
+                .orElse(null);
         
         model.addAttribute("profile", profile);
         return "profile";

@@ -1,8 +1,27 @@
 -- Clear existing data
 DELETE FROM event;
+DELETE FROM profiles;
+DELETE FROM users;
 
 -- Reset auto-increment
 ALTER TABLE event ALTER COLUMN id RESTART WITH 1;
+ALTER TABLE users ALTER COLUMN id RESTART WITH 1;
+ALTER TABLE profiles ALTER COLUMN id RESTART WITH 1;
+
+-- -- Insert pre-registered users (passwords are BCrypt encoded)
+-- -- pass1, pass2, pass3, pass4
+-- INSERT INTO users (username, password, email, enabled) VALUES
+-- ('user1', '$2a$10$dXJ3SW6G7P50lGmMkkmwe.20cQQubK3.HZWzG3YB1tlRy.fqvM/BG', 'user1@example.com', true),
+-- ('user2', '$2a$10$dXJ3SW6G7P50lGmMkkmwe.20cQQubK3.HZWzG3YB1tlRy.fqvM/BG', 'user2@example.com', true),
+-- ('user3', '$2a$10$dXJ3SW6G7P50lGmMkkmwe.20cQQubK3.HZWzG3YB1tlRy.fqvM/BG', 'user3@example.com', true),
+-- ('user4', '$2a$10$dXJ3SW6G7P50lGmMkkmwe.20cQQubK3.HZWzG3YB1tlRy.fqvM/BG', 'user4@example.com', true);
+
+-- Create profiles for each user
+-- INSERT INTO profiles (user_id, avatar_uri, favorite_games, email_notifications, push_notifications) VALUES
+-- (1, 'https://placehold.co/150x150/9D4EDD/ffffff?text=User1', 'League of Legends,Valorant,Minecraft', true, true),
+-- (2, 'https://placehold.co/150x150/7B2CBF/ffffff?text=User2', 'Fortnite,Call of Duty,FIFA 24', true, false),
+-- (3, 'https://placehold.co/150x150/5A189A/ffffff?text=User3', 'Rocket League,Super Smash Bros,Mario Kart', false, true),
+-- (4, 'https://placehold.co/150x150/3C096C/ffffff?text=User4', 'Minecraft,Among Us,Hearthstone', false, false);
 
 -- Insert seed data
 INSERT INTO event (category, description, address, time, organizers, image, available_services, attractions) VALUES

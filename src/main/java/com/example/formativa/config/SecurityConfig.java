@@ -22,6 +22,16 @@ public class SecurityConfig {
     public void configureGlobal(AuthenticationManagerBuilder auth, UserService userService) throws Exception {
         auth.userDetailsService(userService)
             .passwordEncoder(passwordEncoder);
+
+        // Add users user1, user2, user3, user4 with password pass1, pass2, pass3, pass4
+        auth.inMemoryAuthentication()
+            .withUser("user1").password(passwordEncoder.encode("pass1")).roles("USER")
+            .and()
+            .withUser("user2").password(passwordEncoder.encode("pass2")).roles("USER")
+            .and()
+            .withUser("user3").password(passwordEncoder.encode("pass3")).roles("USER")
+            .and()
+            .withUser("user4").password(passwordEncoder.encode("pass4")).roles("USER");
     }
 
     @Bean

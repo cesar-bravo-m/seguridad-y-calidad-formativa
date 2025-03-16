@@ -154,14 +154,14 @@
 
             <div class="mb-4">
                 <label for="username" class="form-label">Nombre de Usuario</label>
-                <input type="text" class="form-control" id="username" name="username" th:value="${profile.user.username}">
+                <input type="text" class="form-control" id="username" name="username" th:value="${profile?.user?.username}">
                 <small class="text-muted">Puedes cambiar tu nombre de usuario</small>
             </div>
 
             <div class="mb-4">
                 <label class="form-label">Juegos de Interés</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" id="gameInput" placeholder="Escribe tus juegos favoritos separados por comas" th:value="${profile.favoriteGames}">
+                    <input type="text" class="form-control" id="gameInput" placeholder="Escribe tus juegos favoritos separados por comas" th:value="${profile?.favoriteGames}">
                 </div>
             </div>
 
