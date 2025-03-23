@@ -17,13 +17,12 @@ import com.example.formativa.repositories.UserRepository;
 
 @Service
 public class UserService implements UserDetailsService {
-
     @Autowired
     private UserRepository userRepository;
     
     @Autowired
     private ProfileRepository profileRepository;
-    
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username)
@@ -48,7 +47,7 @@ public class UserService implements UserDetailsService {
         
         return user;
     }
-    
+
     public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username);
     }

@@ -13,7 +13,6 @@ import com.example.formativa.services.UserService;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
-
     @Autowired
     private UserService userService;
     

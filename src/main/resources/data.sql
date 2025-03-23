@@ -3,13 +3,6 @@ DELETE FROM event;
 DELETE FROM profiles;
 DELETE FROM users;
 
--- Reset auto-increment
-ALTER TABLE event ALTER COLUMN id RESTART WITH 1;
-ALTER TABLE users ALTER COLUMN id RESTART WITH 1;
-ALTER TABLE profiles ALTER COLUMN id RESTART WITH 1;
-
--- Users are now created by DataInitializer class
-
 -- Insert seed data
 INSERT INTO event (category, description, address, time, organizers, image, available_services, attractions) VALUES
 ('Torneo', 'Torneo Nacional de League of Legends', 'Centro de Convenciones Santiago', '2024-05-15 10:00', 'ESL Gaming Chile', 'https://placehold.co/600x400/9D4EDD/ffffff?text=LoL+Tournament', 'Food Court, WiFi, Parking', 'Prize Pool $5000, Meet Pro Players, Cosplay Contest'),
