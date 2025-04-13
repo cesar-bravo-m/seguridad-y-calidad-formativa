@@ -6,7 +6,8 @@ services:
     ports:
       - "80:8080"
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     env_file: .env
     networks:
       - app-network
@@ -22,6 +23,11 @@ services:
       - mysql-data:/var/lib/mysql
     networks:
       - app-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
 volumes:
   mysql-data:
