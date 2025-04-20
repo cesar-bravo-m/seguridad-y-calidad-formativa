@@ -44,13 +44,10 @@ public class RouteController {
         
         List<Event> searchResults = null;
         
-        // If simple search query is provided
         if (query != null && !query.isEmpty()) {
             model.addAttribute("query", query);
-            // Search in all fields
             searchResults = eventService.searchEvents(query, query, query, query);
         } 
-        // If advanced search parameters are provided
         else if ((description != null && !description.isEmpty()) || 
                  (category != null && !category.isEmpty()) || 
                  (date != null && !date.isEmpty()) || 
@@ -58,14 +55,12 @@ public class RouteController {
             
             searchResults = eventService.searchEvents(description, category, date, location);
             
-            // Add search parameters to model for displaying in the form
             model.addAttribute("description", description);
             model.addAttribute("category", category);
             model.addAttribute("date", date);
             model.addAttribute("location", location);
         }
         
-        // Add search results to model
         model.addAttribute("searchResults", searchResults);
         
         return "search";
