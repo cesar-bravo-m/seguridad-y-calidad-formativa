@@ -27,7 +27,6 @@ public class DataInitializer implements CommandLineRunner {
     
     @Override
     public void run(String... args) throws Exception {
-        // Check if users already exist to avoid duplicates
         if (!userRepository.existsByUsername("user1")) {
             User user1 = userService.registerNewUser("user1", "user1@example.com", "pass1", passwordEncoder);
             updateProfile(user1, "https://placehold.co/150x150/9D4EDD/ffffff?text=User1", 

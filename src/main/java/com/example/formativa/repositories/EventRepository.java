@@ -14,19 +14,14 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     List<Event> findTop10ByOrderByIdDesc();
     List<Event> findTop10ByOrderByIdAsc();
     
-    // Search by description (case insensitive)
     List<Event> findByDescriptionContainingIgnoreCase(String description);
     
-    // Search by category (case insensitive)
     List<Event> findByCategoryContainingIgnoreCase(String category);
     
-    // Search by date/time (partial match)
     List<Event> findByTimeContaining(String time);
     
-    // Search by location/address (case insensitive)
     List<Event> findByAddressContainingIgnoreCase(String address);
     
-    // Combined search with all parameters optional
     @Query("SELECT e FROM Event e WHERE " +
            "(:description IS NULL OR LOWER(e.description) LIKE LOWER(CONCAT('%', :description, '%'))) AND " +
            "(:category IS NULL OR LOWER(e.category) LIKE LOWER(CONCAT('%', :category, '%'))) AND " +

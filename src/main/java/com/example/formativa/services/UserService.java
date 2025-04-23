@@ -40,7 +40,6 @@ public class UserService implements UserDetailsService {
         User user = new User(username, passwordEncoder.encode(password), email);
         user = userRepository.save(user);
         
-        // Create profile and establish bidirectional relationship
         Profile profile = new Profile();
         profile.setUser(user);
         profileRepository.save(profile);
@@ -72,13 +71,6 @@ public class UserService implements UserDetailsService {
                                 boolean emailNotifications, boolean pushNotifications) {
         Profile profile = profileRepository.findByUserUsername(username)
                 .orElseThrow(() -> new RuntimeException("Profile not found for user: " + username));
-        
-        // Update the user's username
-        // if (newUsername != null && !newUsername.isEmpty()) {
-        //     User user = profile.getUser();
-        //     user.setUsername(newUsername);
-        //     userRepository.save(user);
-        // }
         
         if (avatarUri != null && !avatarUri.isEmpty()) {
             profile.setAvatarUri(avatarUri);

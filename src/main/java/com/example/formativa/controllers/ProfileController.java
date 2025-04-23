@@ -43,16 +43,13 @@ public class ProfileController {
         
         String currentUsername = principal.getName();
         
-        // Check if username already exists (if it's being changed)
         if (!currentUsername.equals(username) && userService.findByUsername(username).isPresent()) {
             redirectAttributes.addFlashAttribute("error", "El nombre de usuario ya existe");
             return "redirect:/profile";
         }
         
-        // Handle avatar upload (in a real app, you'd save the file and get a URL)
         String avatarUri = null;
         if (avatar != null && !avatar.isEmpty()) {
-            // This is a simplified example - in a real app, you'd save the file and get a URL
             avatarUri = "/uploads/avatars/" + username + "_" + avatar.getOriginalFilename();
         }
         
@@ -69,7 +66,6 @@ public class ProfileController {
             }
         }
         
-        // Update the profile with the new username
         System.out.println("Updating profile for user: " + currentUsername);
         System.out.println("Username: " + username);
         System.out.println("Avatar URI: " + avatarUri);
