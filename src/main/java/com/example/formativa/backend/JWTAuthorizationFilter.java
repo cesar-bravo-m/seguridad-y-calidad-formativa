@@ -55,7 +55,7 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 
     }
 
-    private boolean isJWTValid(HttpServletRequest request, HttpServletResponse res) {
+    public boolean isJWTValid(HttpServletRequest request, HttpServletResponse res) {
         String authenticationHeader = request.getHeader(HEADER_AUTHORIZACION_KEY);
         if (authenticationHeader == null || !authenticationHeader.startsWith(TOKEN_BEARER_PREFIX))
             return false;

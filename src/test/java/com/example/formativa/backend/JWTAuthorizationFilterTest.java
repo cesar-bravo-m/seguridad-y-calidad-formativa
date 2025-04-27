@@ -8,6 +8,7 @@ import static org.mockito.Mockito.verify;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.core.context.SecurityContextHolder;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import jakarta.servlet.FilterChain;
 
@@ -25,6 +26,14 @@ class JWTAuthorizationFilterTest {
         response = new MockHttpServletResponse();
         filterChain = mock(FilterChain.class);
         SecurityContextHolder.clearContext();
+    }
+
+    @Test
+    @DisplayName("Prueba si JWT es válido")
+    void testIsJWTValid() throws Exception {
+        request.addHeader("Authorization", "Bearer " + "token");
+        boolean result = filter.isJWTValid(request, response);
+        assertTrue(result);
     }
 
     @Test

@@ -66,12 +66,6 @@ public class ProfileController {
             }
         }
         
-        System.out.println("Updating profile for user: " + currentUsername);
-        System.out.println("Username: " + username);
-        System.out.println("Avatar URI: " + avatarUri);
-        System.out.println("Games: " + games);
-        System.out.println("Email notifications: " + emailNotifications);
-        System.out.println("Push notifications: " + pushNotifications);
         userService.updateProfile(currentUsername, avatarUri, games, emailNotifications, pushNotifications);
 
         if (!currentUsername.equals(username)) {

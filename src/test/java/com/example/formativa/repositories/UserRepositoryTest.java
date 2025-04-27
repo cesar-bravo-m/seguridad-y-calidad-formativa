@@ -41,7 +41,7 @@ public class UserRepositoryTest {
     }
 
     @Test
-    @DisplayName("Debería encontrar un usuario por su nombre de usuario")
+    @DisplayName("Debe encontrar un usuario por su nombre de usuario")
     void findByUsername_WhenUserExists_ShouldReturnUser() {
         Optional<User> result = userRepository.findByUsername("usuario1");
 

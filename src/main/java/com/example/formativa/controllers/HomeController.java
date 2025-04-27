@@ -19,7 +19,7 @@ public class HomeController {
     @GetMapping("/")
     public String home(Model model) {
         List<Event> latestEvents = eventRepository.findTop10ByOrderByIdDesc();
-        List<Event> featuredEvents = eventRepository.findTop10ByOrderByIdAsc(); // This is temporary, ideally you'd have a 'featured' flag
+        List<Event> featuredEvents = eventRepository.findTop10ByOrderByIdAsc();
         
         model.addAttribute("latestEvents", latestEvents);
         model.addAttribute("featuredEvents", featuredEvents);

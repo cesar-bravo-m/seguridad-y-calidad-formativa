@@ -58,7 +58,7 @@ public class ProfileRepositoryTest {
     }
 
     @Test
-    @DisplayName("Debería encontrar un perfil por su usuario")
+    @DisplayName("Debe encontrar un perfil por su usuario")
     void findByUser_WhenProfileExists_ShouldReturnProfile() {
         Optional<Profile> result = profileRepository.findByUser(user1);
 
@@ -69,7 +69,7 @@ public class ProfileRepositoryTest {
     }
 
     @Test
-    @DisplayName("Debería devolver Optional vacío cuando no existe un perfil para el usuario")
+    @DisplayName("Debe devolver un Optional vacío cuando no existe un perfil para el usuario")
     void findByUser_WhenProfileDoesNotExist_ShouldReturnEmptyOptional() {
         User nonExistentUser = new User("usuario3", "password3", "usuario3@example.com");
         nonExistentUser.setId(999L); // Set a non-existent ID
@@ -80,7 +80,7 @@ public class ProfileRepositoryTest {
     }
 
     @Test
-    @DisplayName("Debería encontrar un perfil por el nombre de usuario")
+    @DisplayName("Debe encontrar un perfil por el nombre de usuario")
     void findByUserUsername_WhenProfileExists_ShouldReturnProfile() {
         Optional<Profile> result = profileRepository.findByUserUsername("usuario1");
 
@@ -91,7 +91,7 @@ public class ProfileRepositoryTest {
     }
 
     @Test
-    @DisplayName("Debería devolver Optional vacío cuando no existe un perfil para el nombre de usuario")
+    @DisplayName("Debe devolver un Optional vacío cuando no existe un perfil para el nombre de usuario")
     void findByUserUsername_WhenProfileDoesNotExist_ShouldReturnEmptyOptional() {
         Optional<Profile> result = profileRepository.findByUserUsername("usuario3");
 

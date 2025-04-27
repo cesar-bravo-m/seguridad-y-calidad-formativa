@@ -77,4 +77,11 @@ public class AuthControllerTest {
                 .param("encryptedPass", TEST_PASSWORD))
                .andExpect(status().isForbidden());
     }
+ 
+    @Test
+    @DisplayName("GET /login debe mostrar la página de inicio de sesión")
+    void showLoginPage() throws Exception {
+        mockMvc.perform(get("/login"))
+            .andExpect(status().isOk());
+    }
 } 

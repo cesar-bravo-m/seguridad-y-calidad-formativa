@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 class ConstantsTest {
 
     @Test
-    @DisplayName("Las constantes tienen los valores correctos")
+    @DisplayName("Las constantes deben tener los valores correctos")
     void testConstants() {
         assertEquals("/login", Constants.LOGIN_URL);
         assertEquals("Authorization", Constants.HEADER_AUTHORIZACION_KEY);
@@ -20,7 +20,7 @@ class ConstantsTest {
     }
 
     @Test
-    @DisplayName("getSigningKeyB64 devuelve una clave válida")
+    @DisplayName("getSigningKeyB64 debe devolver una clave válida")
     void testGetSigningKeyB64() {
         String secret = "dGVzdF9zZWNyZXRfa2V5X2Zvcl90ZXN0aW5nX3B1cnBvc2Vz";
         Key key = Constants.getSigningKeyB64(secret);
@@ -28,7 +28,7 @@ class ConstantsTest {
     }
 
     @Test
-    @DisplayName("getSigningKey devuelve una clave válida")
+    @DisplayName("getSigningKey debe devolver una clave válida")
     void testGetSigningKey() {
         String secret = "test_secret_key_for_testing_purposes";
         Key key = Constants.getSigningKey(secret);
