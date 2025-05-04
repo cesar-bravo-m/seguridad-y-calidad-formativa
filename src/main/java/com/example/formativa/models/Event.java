@@ -1,5 +1,7 @@
 package com.example.formativa.models;
 
+import java.util.Objects;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -96,5 +98,42 @@ public class Event {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Event event = (Event) o;
+        return Objects.equals(id, event.id) &&
+               Objects.equals(category, event.category) &&
+               Objects.equals(description, event.description) &&
+               Objects.equals(address, event.address) &&
+               Objects.equals(time, event.time) &&
+               Objects.equals(organizers, event.organizers) &&
+               Objects.equals(image, event.image) &&
+               Objects.equals(availableServices, event.availableServices) &&
+               Objects.equals(attractions, event.attractions);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, category, description, address, time, organizers, 
+                          image, availableServices, attractions);
+    }
+
+    @Override
+    public String toString() {
+        return "Event{" +
+               "id=" + id +
+               ", category='" + category + '\'' +
+               ", description='" + description + '\'' +
+               ", address='" + address + '\'' +
+               ", time='" + time + '\'' +
+               ", organizers='" + organizers + '\'' +
+               ", image='" + image + '\'' +
+               ", availableServices='" + availableServices + '\'' +
+               ", attractions='" + attractions + '\'' +
+               '}';
     }
 } 

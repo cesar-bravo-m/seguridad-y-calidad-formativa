@@ -1,5 +1,7 @@
 package com.example.formativa.models;
 
+import java.util.Objects;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -93,5 +95,33 @@ public class Profile {
     
     public void setPushNotifications(boolean pushNotifications) {
         this.pushNotifications = pushNotifications;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Profile profile = (Profile) o;
+        return emailNotifications == profile.emailNotifications &&
+               pushNotifications == profile.pushNotifications &&
+               Objects.equals(id, profile.id) &&
+               Objects.equals(avatarUri, profile.avatarUri) &&
+               Objects.equals(favoriteGames, profile.favoriteGames);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, avatarUri, favoriteGames, emailNotifications, pushNotifications);
+    }
+
+    @Override
+    public String toString() {
+        return "Profile{" +
+               "id=" + id +
+               ", avatarUri='" + avatarUri + '\'' +
+               ", favoriteGames='" + favoriteGames + '\'' +
+               ", emailNotifications=" + emailNotifications +
+               ", pushNotifications=" + pushNotifications +
+               '}';
     }
 } 

@@ -19,6 +19,9 @@ import io.jsonwebtoken.Jwts;
 public class JWTAuthenticationConfig {
 
     public String getJWTToken(String username) {
+        if (username == null) {
+            throw new NullPointerException("Username is null");
+        }
         List<GrantedAuthority> grantedAuthorities = AuthorityUtils
                 .commaSeparatedStringToAuthorityList("ROLE_USER");
 

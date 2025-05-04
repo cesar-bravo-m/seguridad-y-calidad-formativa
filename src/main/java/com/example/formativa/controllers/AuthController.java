@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.formativa.backend.JWTAuthenticationConfig;
 import com.example.formativa.services.UserService;
-
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Controller
 public class AuthController {
@@ -31,23 +30,18 @@ public class AuthController {
         return "login";
     }
 
-    @GetMapping("/success")
-    public String success() {
-        return "success";
-    }
-
-    @PostMapping("/login")
+    @PostMapping(value = "/login")
     public ResponseEntity<String> login(
-            @RequestParam("user") String username,
-            @RequestParam("encryptedPass") String unencryptedPass) {
+            @RequestParam("user") String user,
+            @RequestParam("encryptedPass") String encryptedPass) {
 
-        final UserDetails userDetails = userService.loadUserByUsername(username);
+        final UserDetails userDetails = userService.loadUserByUsername(user);
 
-        if (!passwordEncoder.matches(unencryptedPass, userDetails.getPassword())) {
+        if (!passwordEncoder.matches(encryptedPass, userDetails.getPassword())) {
             throw new RuntimeException("Invalid login");
         }
 
-        String token = jwtAuthtenticationConfig.getJWTToken(username);
+        String token = jwtAuthtenticationConfig.getJWTToken(user);
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + token);

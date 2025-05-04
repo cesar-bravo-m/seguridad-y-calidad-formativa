@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import static com.example.formativa.backend.Constants.HEADER_AUTHORIZACION_KEY;
-import static com.example.formativa.backend.Constants.SUPER_SECRET_KEY;
 import static com.example.formativa.backend.Constants.TOKEN_BEARER_PREFIX;
 import static com.example.formativa.backend.Constants.getSigningKey;
 
@@ -30,20 +29,21 @@ import jakarta.servlet.http.HttpServletResponse;
 @Component
 public class JWTAuthorizationFilter extends OncePerRequestFilter {
 
-    private Claims setSigningKey(HttpServletRequest request) {
+    Claims setSigningKey(HttpServletRequest request) {
+        Constants constants = new Constants();
         String jwtToken = request.
                 getHeader(HEADER_AUTHORIZACION_KEY).
                 replace(TOKEN_BEARER_PREFIX, "");
 
                 return Jwts.parser()
-                .verifyWith((SecretKey) getSigningKey(SUPER_SECRET_KEY))
+                .verifyWith((SecretKey) getSigningKey(constants.getSuperSecretSigningKey()))
                 .build()
                 .parseSignedClaims(jwtToken)
                 .getPayload();
 
     }
 
-    private void setAuthentication(Claims claims) {
+    void setAuthentication(Claims claims) {
 
         List<String> authorities = (List<String>) claims.get("authorities");
 

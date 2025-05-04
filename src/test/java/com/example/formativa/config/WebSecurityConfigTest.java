@@ -18,32 +18,32 @@ class WebSecurityConfigTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Test
-    @DisplayName("Endpoints públicos deben ser accesibles sin autenticación")
-    void testPublicEndpoints() throws Exception {
-        mockMvc.perform(get("/"))
-               .andExpect(status().isOk());
+     @Test
+     @DisplayName("Endpoints públicos deben ser accesibles sin autenticación")
+     void testPublicEndpoints() throws Exception {
+         mockMvc.perform(get("/"))
+                .andExpect(status().isOk());
 
-        mockMvc.perform(get("/register"))
-               .andExpect(status().isOk());
+         mockMvc.perform(get("/register"))
+                .andExpect(status().isOk());
 
-        mockMvc.perform(get(Constants.LOGIN_URL))
-               .andExpect(status().isOk());
+         mockMvc.perform(get(Constants.LOGIN_URL))
+                .andExpect(status().isOk());
 
-        mockMvc.perform(get("/css/styles.css"))
-               .andExpect(status().isOk());
-    }
+         mockMvc.perform(get("/css/styles.css"))
+                .andExpect(status().isOk());
+     }
 
-    @Test
-    @DisplayName("Endpoints protegidos deben requerir autenticación")
-    void testProtectedEndpoints() throws Exception {
-        mockMvc.perform(get("/profile"))
-               .andExpect(status().isForbidden());
+     @Test
+     @DisplayName("Endpoints protegidos deben requerir autenticación")
+     void testProtectedEndpoints() throws Exception {
+         mockMvc.perform(get("/profile"))
+                .andExpect(status().isForbidden());
 
-        mockMvc.perform(get("/search"))
-               .andExpect(status().isForbidden());
+         mockMvc.perform(get("/search"))
+                .andExpect(status().isForbidden());
 
-        mockMvc.perform(get("/details/1"))
-               .andExpect(status().isForbidden());
-    }
+         mockMvc.perform(get("/details/1"))
+                .andExpect(status().isForbidden());
+     }
 } 
